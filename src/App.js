@@ -37,7 +37,7 @@ function App() {
 
 <nav
       style={{
-        borderBottom: "solid 1px",
+        borderBottom: "solid 2px",
         paddingBottom: "1rem",
       }}
     >
