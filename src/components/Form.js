@@ -1,7 +1,7 @@
 import { APIClient, Openlaw } from "openlaw";
 import OpenLawForm from "openlaw-elements";
 import { useEffect, useState } from "react";
-import "openlaw-elements/dist/openlaw-elements.min.css";
+//import "openlaw-elements/dist/openlaw-elements.min.css";
 
 const apiClient = new APIClient("https://lib.openlaw.io/api/v1/default");
 apiClient.login("simbadinosour@gmail.com", "Openlaw129");
