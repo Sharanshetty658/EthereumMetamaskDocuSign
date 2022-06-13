@@ -5,3 +5,12 @@ function isValidTemplate(template){
         //if(template[j]==0)
     }
 }
+
+export function convertTemplateToHTML(template){
+    return template.replace(/\[\[.*\]\]/g,`_____`);
+}
+
+const dog = `
+<main> <h2> see contract [[dog:cat]] 
+<p1> [[wtf]] history</h2></main>`
+

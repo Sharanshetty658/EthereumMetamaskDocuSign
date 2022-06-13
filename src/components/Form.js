@@ -1,6 +1,7 @@
 import { APIClient, Openlaw } from "openlaw";
 import OpenLawForm from "openlaw-elements";
 import { useEffect, useState } from "react";
+import { convertTemplateToHTML } from "./Utils";
 //import "openlaw-elements/dist/openlaw-elements.min.css";
 
 const apiClient = new APIClient("https://lib.openlaw.io/api/v1/default");
@@ -55,7 +56,7 @@ const ContractForm = ({ template , onChange }) => {
         openLaw={Openlaw}
         variables={variables}
       />
-      <div dangerouslySetInnerHTML={{ __html: txt }} />
+      <div dangerouslySetInnerHTML={{ __html: convertTemplateToHTML(txt) }} />
     </>
   );
 };
