@@ -3,7 +3,7 @@ import "./App.css";
 import { useRef, useState } from "react";
 import { APIClient, Openlaw } from "openlaw";
 import { Link, Outlet } from "react-router-dom";
-
+import { template1 } from "./template/templates";
 import ContractForm from "./components/Form";
 
 const apiClient = new APIClient("https://lib.openlaw.io/api/v1/default");
@@ -11,7 +11,9 @@ const apiClient = new APIClient("https://lib.openlaw.io/api/v1/default");
 
 function App() {
   // form information
-  const [template, setTemplate] = useState(`**NAME**[[firstname]] [[dog]]`);
+  //const [templateID,]
+  //const [template, setTemplate] = useState(`**NAME**[[firstname]] [[dog]]`);
+  const [template, setTemplate] = useState(template1);
   const [parameters, setParameters] = useState({});
   const templateRef = useRef();
   function onParametersChange(key, value, validationData) {
@@ -25,7 +27,7 @@ function App() {
     e.preventDefault();
     const pdf = {
       content: template,
-      title: "CONTRACT",
+      title: "downloaded_template",
       parameters: {},
       paragraphs: {},
       templates: {},
@@ -37,7 +39,7 @@ function App() {
 
 <nav
       style={{
-        borderBottom: "solid 1px",
+        borderBottom: "solid 2px",
         paddingBottom: "1rem",
       }}
     >
