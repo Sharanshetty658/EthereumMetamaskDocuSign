@@ -25,7 +25,7 @@ function App() {
     e.preventDefault();
     const pdf = {
       content: template,
-      title: "DOG TEMPLATE",
+      title: "CONTRACT",
       parameters: {},
       paragraphs: {},
       templates: {},
