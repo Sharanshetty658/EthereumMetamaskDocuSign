@@ -1,49 +1,26 @@
 import { APIClient, Openlaw } from "openlaw";
 import OpenLawForm from "openlaw-elements";
-import { useEffect, useState } from "react";
-import { convertTemplateToHTML } from "./Utils";
-//import "openlaw-elements/dist/openlaw-elements.min.css";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { convertTemplateToHTML } from "../utility/toHTML";
+import "openlaw-elements/dist/openlaw-elements.min.css";
 
 const apiClient = new APIClient("https://lib.openlaw.io/api/v1/default");
-apiClient.login("simbadinosour@gmail.com", "Openlaw129");
 
-/*
-function create_contract(template){
+const ContractForm = ({ template, stateLift, key }) => {
+ // console.log("form rerender");
+  const [params, setParams] = useState({});
+  const { compiledTemplate } = Openlaw.compileTemplate(template);
   const { executionResult, errorMessage } = Openlaw.execute(
     compiledTemplate,
     {},
     {}
   );
   const variables = Openlaw.getExecutedVariables(executionResult, {});
-  const parameters = {};
-  
-  if (errorMessage) {
-    console.error("Openlaw Execution Error:", errorMessage);
-  }
-}
-*/
+    console.log(JSON.stringify(params));
 
-const ContractForm = ({ template , onChange }) => {
-  console.log("form inside template",template);
-  const { compiledTemplate } = Openlaw.compileTemplate(template);
-  const { executionResult, errorMessage } = Openlaw.execute( compiledTemplate, {},{});
-  const variables = Openlaw.getExecutedVariables(executionResult, {});
-  const { agreement } = Openlaw.getAgreements(executionResult)[0];
-  const [params, setParams] = useState({});
-  const [txt, setTxt] = useState(Openlaw.renderForPreview(agreement,{},{}));
-
-
-  useEffect(() => {
-    let { executionResult, errorMessage } = Openlaw.execute(compiledTemplate,{},params);
- 
-    const variables = Openlaw.getExecutedVariables(executionResult, {});
-    const { agreement } = Openlaw.getAgreements(executionResult)[0];
-    setTxt(Openlaw.renderForPreview(agreement, {}, {}));
-  });
-
-  function onChangeFunction(key,value,validationData)
-  {
-      setParams({ ...params, [key]: value });
+  function onChangeFunction(key, value, validationData) {
+    setParams({ ...params, [key]: value });
+    stateLift(key, value, validationData);
   }
 
   return (
@@ -56,7 +33,6 @@ const ContractForm = ({ template , onChange }) => {
         openLaw={Openlaw}
         variables={variables}
       />
-      <div dangerouslySetInnerHTML={{ __html: convertTemplateToHTML(txt) }} />
     </>
   );
 };
