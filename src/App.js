@@ -4,12 +4,19 @@ import { APIClient, Openlaw } from "openlaw";
 import { Link, Outlet } from "react-router-dom";
 import { Templates } from "./utility/templates";
 import ContractForm from "./components/Form";
-import { Grid, TextField, Box, Typography } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Box,
+  Typography,
+  CircularProgress,
+  Backdrop,
+} from "@mui/material";
 import Preview from "./components/Preview";
 import { convertTemplateToHTML } from "./utility/toHTML";
 import { isValidTemplate } from "./utility/isValid";
 import { Container } from "@mui/system";
-
+import ToBlockchain from "./components/ToBlockchain";
 const apiClient = new APIClient("https://lib.openlaw.io/api/v1/default");
 
 const style = {
@@ -23,16 +30,32 @@ const style = {
 function App() {
   const [template, setTemplate] = useState(Templates[0].txt);
   const [formData, setFormdata] = useState({});
-  const [key,setKey] = useState(0);
+  const [key, setKey] = useState(0);
   const textfieldRef = useRef();
+  const [eth_address, setEthaddress] = useState("");
+  const [popup, setPopup] = useState(false);
   const formUpdate = (key, value, validationData) => {
     setFormdata({ ...formData, [key]: value });
     //console.log(formData)
   };
 
+  function sendToBlockchain() {
+    if (window.ethereum) {
+      window.ethereum.request({ method: "eth_requestAccounts" }).then((res) => {
+        // Return the address of the wallet
+        setEthaddress(res);
+        console.log("address", eth_address);
+      });
+    } else {
+      alert("install metamask extension!!");
+    }
+    setPopup(true);
+  }
+
   function submitTemplate(e) {
     e.preventDefault();
-   setKey(key+1);
+    setKey(key + 1);
+    setFormdata({});
 
     if (isValidTemplate(textfieldRef.current.value))
       setTemplate(textfieldRef.current.value);
@@ -89,7 +112,11 @@ function App() {
               UserInput
             </Typography>
             <hr />
-            <ContractForm template={template} stateLift={formUpdate}  key={key} />
+            <ContractForm
+              template={template}
+              stateLift={formUpdate}
+              key={key}
+            />
           </Box>
         </Grid>
         <Grid item xs={5}>
@@ -98,11 +125,24 @@ function App() {
               Preview
             </Typography>{" "}
             <button onClick={downloadPDF}> Download PDF</button>
+            <button onClick={sendToBlockchain}>
+        {" "}
+        SIGNED with metamask and SEND to blockchain
+      </button>
             <hr />
             <Preview template={template} formData={formData} />
           </Box>
         </Grid>
       </Grid>
+
+
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={popup}
+        onClick={() => setPopup(false)}
+      >
+        <ToBlockchain SignedBy={eth_address} />
+      </Backdrop>
     </>
   );
 }

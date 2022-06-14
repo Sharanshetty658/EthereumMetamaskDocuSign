@@ -6,8 +6,8 @@ import "openlaw-elements/dist/openlaw-elements.min.css";
 
 const apiClient = new APIClient("https://lib.openlaw.io/api/v1/default");
 
-const ContractForm = ({ template, stateLift, key }) => {
- // console.log("form rerender");
+const ContractForm = ({ template, stateLift }) => {
+  // console.log("form rerender");
   const [params, setParams] = useState({});
   const { compiledTemplate } = Openlaw.compileTemplate(template);
   const { executionResult, errorMessage } = Openlaw.execute(
@@ -16,7 +16,7 @@ const ContractForm = ({ template, stateLift, key }) => {
     {}
   );
   const variables = Openlaw.getExecutedVariables(executionResult, {});
-    console.log(JSON.stringify(params));
+  //console.log(JSON.stringify(params));
 
   function onChangeFunction(key, value, validationData) {
     setParams({ ...params, [key]: value });
