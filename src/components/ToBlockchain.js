@@ -1,9 +1,10 @@
-import { Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 const ToBlockchain = ({ SignedBy }) => {
   console.log("signedBy", SignedBy);
   return (
     <>
-      <Paper elevation={3} fullWidth={true}>
+    <Box sx={{width:0.7,textAlign:"center"}}>
+      <Paper elevation={3}>
         <hr />
         Signed by ETH ACCOUNT: {SignedBy}
         <br /> Contract hash: _____
@@ -12,6 +13,7 @@ const ToBlockchain = ({ SignedBy }) => {
         <br /> Contract address: _______
         <hr />
       </Paper>
+      </Box>
     </>
   );
 };

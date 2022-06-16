@@ -20,9 +20,6 @@ import ToBlockchain from "./components/ToBlockchain";
 const apiClient = new APIClient("https://lib.openlaw.io/api/v1/default");
 
 const style = {
-  border: 3,
-  borderRadius: 2,
-  borderColor: "#ffaa00",
   margin: "1%",
   padding: "10px",
 };
