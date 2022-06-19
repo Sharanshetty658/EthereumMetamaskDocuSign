@@ -1,6 +1,7 @@
 import { Box, Paper } from "@mui/material";
 const ToBlockchain = ({ SignedBy }) => {
-  console.log("signedBy", SignedBy);
+  
+  //console.log("signedBy", SignedBy);
   return (
     <>
     <Box sx={{width:0.7,textAlign:"center"}}>
