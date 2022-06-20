@@ -4,7 +4,7 @@ import { APIClient, Openlaw } from "openlaw";
 import { Link, Outlet } from "react-router-dom";
 import { Templates } from "./utility/templates";
 import ContractForm from "./components/Form";
-import { ethers } from "ethers";
+import { ethers , BigNumber} from "ethers";
 import { address, abi } from "./utility/smartcontract";
 import { sha256 } from "crypto-hash";
 import SendIcon from "@mui/icons-material/Send";
@@ -70,12 +70,11 @@ function App() {
   const handleFileInput = (e) => {
     e.preventDefault();
     const pdf = new FileReader();
-    var hashed;
+    var temp_hash;
     pdf.onload = async () => {
-      hashed = await sha256(pdf.result);
-      setHashed(hashed);
+      temp_hash = await sha256(pdf.result);
+      setHashed(temp_hash);
       setFileInput(pdf.result);
-      console.log(hashed);
     };
 
     pdf.readAsArrayBuffer(e.target.files[0]);
@@ -90,9 +89,9 @@ function App() {
       const openlawThaiSigner = openlawThai.connect(signer);
       let ans = await openlawThai.wave();
       var now = new Date();
-      //let storing = await openlawThaiSigner.store(now.toString(), 1234, "wtf");
+      let storing = await openlawThaiSigner.store(now.toString(),hashed, detail);
       setMsg(ans);
-      //setsignedMsg(storing);
+      setsignedMsg(storing);
       setAlert(true);
     } else {
       alert("install metamask extension!!");

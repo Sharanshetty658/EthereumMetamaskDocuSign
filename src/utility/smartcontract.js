@@ -1,4 +1,4 @@
-export const address = "0xcb51e09ba325d43123d2fed346150afbfcf64dbf";
+export const address = "0x0e56a578758bcc862c8a8648e0609199404d9d1c";
 export const abi = [
 	{
 		"inputs": [
@@ -26,9 +26,9 @@ export const abi = [
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "hashed",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "string",
@@ -75,9 +75,9 @@ export const abi = [
 						"type": "string"
 					},
 					{
-						"internalType": "uint256",
+						"internalType": "string",
 						"name": "hashed",
-						"type": "uint256"
+						"type": "string"
 					},
 					{
 						"internalType": "string",
@@ -110,9 +110,9 @@ export const abi = [
 						"type": "string"
 					},
 					{
-						"internalType": "uint256",
+						"internalType": "string",
 						"name": "hashed",
-						"type": "uint256"
+						"type": "string"
 					},
 					{
 						"internalType": "string",
@@ -136,9 +136,9 @@ export const abi = [
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
+				"internalType": "string",
 				"name": "_hashed",
-				"type": "uint256"
+				"type": "string"
 			},
 			{
 				"internalType": "string",
