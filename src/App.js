@@ -5,7 +5,9 @@ import { Link, Outlet } from "react-router-dom";
 import { Templates } from "./utility/templates";
 import ContractForm from "./components/Form";
 import { ethers } from "ethers";
-import {address,abi} from "./utility/smartcontract"
+import { address, abi } from "./utility/smartcontract";
+import { sha256 } from "crypto-hash";
+
 import {
   Grid,
   TextField,
@@ -33,47 +35,64 @@ function App() {
   const textfieldRef = useRef();
   const [eth_address, setEthaddress] = useState("");
   const [popup, setPopup] = useState(false);
-  const [message,setMessage] = useState("");
+  const [msg, setMsg] = useState("");
+  const [signed_msg, setsignedMsg] = useState("");
+  const [file_input, setFileInput] = useState("");
+  const [hashed, setHashed] = useState();
+
   const formUpdate = (key, value, validationData) => {
     setFormdata({ ...formData, [key]: value });
     //console.log(formData)
   };
 
-  useEffect(()=>{
-
+  useEffect(() => {
     const connectToMetamask = async () => {
-      if(typeof window.ethereum !== "undefined"){
+      if (typeof window.ethereum !== "undefined") {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         //const accounts = await window.ethereum.request({ method: "eth_accounts" });
         const accounts = await provider.send("eth_requestAccounts", []);
 
         setEthaddress(accounts[0]);
-        console.log("set address = ",eth_address);
-    } else console.log("please install Metamask")
-  }
+        console.log("set address = ", eth_address);
+      } else console.log("please install Metamask");
+    };
 
-  connectToMetamask();
+    connectToMetamask();
+  }, [eth_address]);
 
-},[]);
+  const handleFileInput = (e) => {
+    const pdf = new FileReader();
+    var hashed;
+    pdf.onload = async () => {
+      hashed = await sha256(pdf.result);
+      setHashed(hashed);
+      setFileInput(pdf.result);
+      console.log(hashed);
+    };
 
+    pdf.readAsArrayBuffer(e.target.files[0]);
+  };
 
   async function sendToBlockchain() {
     if (window.ethereum) {
-   
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
 
       //const accounts = await provider.send("eth_requestAccounts", []);
       //console.log(accounts)
       //setEthaddress(accounts[0]);
       //console.log("address", eth_address);
-      const signer = provider.getSigner()
+      const signer = provider.getSigner();
       const openlawThai = new ethers.Contract(address, abi, provider);
-      const openlawThaiSigner = openlawThai.connect(signer)
+      const openlawThaiSigner = openlawThai.connect(signer);
       let ans = await openlawThai.wave();
-      setMessage(ans);
-      //console.log("WTF");
-      console.log(message);
+      var now = new Date();
 
+      let storing = await openlawThaiSigner.store(now.toString(), 1234, "wtf");
+      setMsg(ans);
+      setsignedMsg(storing);
+      //console.log("WTF");
+      console.log("msg ", msg);
+      console.log("signed msg ", msg);
     } else {
       alert("install metamask extension!!");
     }
@@ -137,7 +156,7 @@ function App() {
         <Grid item xs={2}>
           <Box sx={style}>
             <Typography variant="h5" component="h6" textAlign="center">
-              UserInput
+              Form
             </Typography>
             <hr />
             <ContractForm
@@ -154,15 +173,15 @@ function App() {
             </Typography>{" "}
             <button onClick={downloadPDF}> Download PDF</button>
             <button onClick={sendToBlockchain}>
-        {" "}
-        SIGNED with metamask and SEND to blockchain
-      </button>
+              {" "}
+              SIGNED with metamask and SEND to blockchain
+            </button>
+            <input type="file" className="form-control" id="file-input" onChange={handleFileInput}/>
             <hr />
             <Preview template={template} formData={formData} />
           </Box>
         </Grid>
       </Grid>
-
 
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
