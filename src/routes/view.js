@@ -2,21 +2,24 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { address, abi } from "../utility/smartcontract";
 import { Link } from "react-router-dom";
+import { ContractTable } from "../components/contractTable";
 export default function View() {
 
     const [contracts,setContracts] = useState();
 
     useEffect(()=>{
-        viewBlockchain();
-    },[])
 
-    async function viewBlockchain() {
+      async function viewBlockchain() {
         if (window.ethereum) {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
           const signer = provider.getSigner();
+
+         console.log("address seek",address)
           const openlawThai = new ethers.Contract(address, abi, provider);
-          //const openlawThaiSigner = openlawThai.connect(signer);
-          let contracts = await openlawThai.retrieveAll();
+          const openlawThaiSigner = openlawThai.connect(signer);
+          console.log("before retrieve")
+          let contracts = await openlawThaiSigner.retrieveAll();
+          console.log("this is contract",contracts)
          // let storing = await openlawThaiSigner.store(now.toString(),hashed, detail);
          // setMsg(ans);
           setContracts(contracts);
@@ -25,6 +28,15 @@ export default function View() {
           alert("install metamask extension!!");
         }
       }
+
+
+        viewBlockchain();
+        console.log("useeffect loop",contracts);
+
+
+    },[])
+
+
 
 
     return (
@@ -42,7 +54,9 @@ export default function View() {
         </span>
       </nav>
 
-        <main> <h2> see contract history</h2></main>
-        </>
+        <main> <h2> Deployed Contract</h2></main>
+        <ContractTable contracts={contracts}/>
+            </>
     )
 }
+

@@ -4,7 +4,7 @@ import { APIClient, Openlaw } from "openlaw";
 import { Link, Outlet } from "react-router-dom";
 import { Templates } from "./utility/templates";
 import ContractForm from "./components/Form";
-import { ethers , BigNumber} from "ethers";
+import { ethers, BigNumber } from "ethers";
 import { address, abi } from "./utility/smartcontract";
 import { sha256 } from "crypto-hash";
 import SendIcon from "@mui/icons-material/Send";
@@ -88,10 +88,14 @@ function App() {
       const signer = provider.getSigner();
       const openlawThai = new ethers.Contract(address, abi, provider);
       const openlawThaiSigner = openlawThai.connect(signer);
-     // let ans = await openlawThai.wave();
+      // let ans = await openlawThai.wave();
       var now = new Date();
-      let storing = await openlawThaiSigner.store(now.toString(),hashed, detail);
-     // setMsg(ans);
+      let storing = await openlawThaiSigner.store(
+        now.toString(),
+        hashed,
+        detail
+      );
+      // setMsg(ans);
       setsignedMsg(storing);
       setAlert(true);
     } else {
@@ -131,10 +135,11 @@ function App() {
           paddingBottom: "1rem",
         }}
       >
-        <Link to="/">Home</Link> | <Link to="/view">view deployed contracts</Link> |{" "}
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/view">view deployed contracts</Link> |{" "}
         <span style={{ float: "right" }}>
           Smart Contract address (ropsten test network) :
-          "0xcb51e09ba325d43123d2fed346150afbfcf64dbf"
+          "0x0e56a578758bcc862c8a8648e0609199404d9d1c"
         </span>
       </nav>
 
@@ -216,7 +221,8 @@ function App() {
             color="#6b6b61"
           >
             Upload file : contract.pdf you downloaded above, or any other
-            document that you want to store as on the blockchain (as a hash for now)
+            document that you want to store as on the blockchain (as a hash for
+            now)
           </Typography>
           <br />
           <div id="file-input">
@@ -260,13 +266,13 @@ function App() {
           {alert && (
             <Alert severity="success">
               Contract succesfully deployed on blockchain , check "view deployed
-              contract" tap see all of your contracts{" "}
+              contract" tab to see all of your contracts{" "}
             </Alert>
           )}
         </Box>
       </Backdrop>
     </>
   );
-}
+          }
 
 export default App;
