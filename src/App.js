@@ -26,6 +26,7 @@ import { isValidTemplate } from "./utility/isValid";
 import { Container } from "@mui/system";
 import ToBlockchain from "./components/ToBlockchain";
 import ropsten from "./utility/ropsten.png";
+import View from "./routes/view";
 const apiClient = new APIClient("https://lib.openlaw.io/api/v1/default");
 
 const style = {
@@ -87,10 +88,10 @@ function App() {
       const signer = provider.getSigner();
       const openlawThai = new ethers.Contract(address, abi, provider);
       const openlawThaiSigner = openlawThai.connect(signer);
-      let ans = await openlawThai.wave();
+     // let ans = await openlawThai.wave();
       var now = new Date();
       let storing = await openlawThaiSigner.store(now.toString(),hashed, detail);
-      setMsg(ans);
+     // setMsg(ans);
       setsignedMsg(storing);
       setAlert(true);
     } else {
@@ -130,13 +131,12 @@ function App() {
           paddingBottom: "1rem",
         }}
       >
-        <Link to="/">Home</Link> | <Link to="/contracts">view contracts</Link> |{" "}
+        <Link to="/">Home</Link> | <Link to="/view">view deployed contracts</Link> |{" "}
         <span style={{ float: "right" }}>
-          Smart Contract location (ropsten test network) :
+          Smart Contract address (ropsten test network) :
           "0xcb51e09ba325d43123d2fed346150afbfcf64dbf"
         </span>
       </nav>
-      <Outlet />
 
       <Grid container spacing={5}>
         <Grid item xs={5}>
@@ -215,8 +215,8 @@ function App() {
             textAlign="center"
             color="#6b6b61"
           >
-            Upload file : contract's pdf you downloaded above, or any other
-            document that you want to store as a hashed on the blockchain
+            Upload file : contract.pdf you downloaded above, or any other
+            document that you want to store as on the blockchain (as a hash for now)
           </Typography>
           <br />
           <div id="file-input">
@@ -247,7 +247,7 @@ function App() {
             color="#6b6b61"
           >
             Before you sign, set your metamask to Ropsten test network and
-            please make sure that you have some Ether on that account
+            please make sure that you have some Ether
           </Typography>
           <Button
             variant="contained"
@@ -260,7 +260,7 @@ function App() {
           {alert && (
             <Alert severity="success">
               Contract succesfully deployed on blockchain , check "view deployed
-              contract" to access this contracts on blockchain{" "}
+              contract" tap see all of your contracts{" "}
             </Alert>
           )}
         </Box>
