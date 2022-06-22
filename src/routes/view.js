@@ -6,7 +6,7 @@ import { ContractTable } from "../components/contractTable";
 export default function View() {
 
     const [contracts,setContracts] = useState();
-
+    const etherscan_link = `https://ropsten.etherscan.io/address/`+address;
     useEffect(()=>{
 
       async function viewBlockchain() {
@@ -55,6 +55,9 @@ export default function View() {
       </nav>
 
         <main> <h2> Deployed Contract</h2></main>
+        <div> Deployed on ropsten test network at : <a href={etherscan_link}>{address}</a> </div> <br/>
+          <div> User address: {contracts[0][0]} </div>
+          <br/>
         <ContractTable contracts={contracts}/>
             </>
     )
