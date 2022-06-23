@@ -7,7 +7,10 @@ export default function View() {
 
     const [contracts,setContracts] = useState();
     const etherscan_link = `https://ropsten.etherscan.io/address/`+address;
+
+
     useEffect(()=>{
+
 
       async function viewBlockchain() {
         if (window.ethereum) {
@@ -23,7 +26,7 @@ export default function View() {
          // let storing = await openlawThaiSigner.store(now.toString(),hashed, detail);
          // setMsg(ans);
           setContracts(contracts);
-          console.log(contracts);
+      
         } else {
           alert("install metamask extension!!");
         }
@@ -32,7 +35,7 @@ export default function View() {
 
         viewBlockchain();
         console.log("useeffect loop",contracts);
-
+        
 
     },[])
 
@@ -54,12 +57,19 @@ export default function View() {
         </span>
       </nav>
 
-        <main> <h2> Deployed Contract</h2></main>
-        <div> Deployed on ropsten test network at : <a href={etherscan_link}>{address}</a> </div> <br/>
-          <div> User address: {contracts[0][0]} </div>
+         
+
+          <main> <h2> Deployed Contract</h2></main>
+
+          <div> Smart Contract address (ropsten test network) :  <a href={etherscan_link}>{address}</a> </div> <br/>
+          {typeof contracts==='undefined'? <div> loading </div> : <div> User address : {contracts[0][0]} </div> }
           <br/>
         <ContractTable contracts={contracts}/>
             </>
     )
+
+    
 }
+
+//<div> User address: {contracts[0][0]} </div>
 
