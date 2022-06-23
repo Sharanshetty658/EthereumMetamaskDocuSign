@@ -1,5 +1,35 @@
-export const address = "0x0e56a578758bcc862c8a8648e0609199404d9d1c";
+export const address = "0x0e8b5ec38af757f13abff9ab8c64a8080b61b0fc";
 export const abi = [
+	{
+		"inputs": [],
+		"name": "deleteAll",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_created_at",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_hashed",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_detail",
+				"type": "string"
+			}
+		],
+		"name": "store",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
 	{
 		"inputs": [
 			{
@@ -17,7 +47,7 @@ export const abi = [
 		"outputs": [
 			{
 				"internalType": "address",
-				"name": "user",
+				"name": "owner",
 				"type": "address"
 			},
 			{
@@ -41,53 +71,12 @@ export const abi = [
 	},
 	{
 		"inputs": [],
-		"name": "numContract",
+		"name": "numberOfContract",
 		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "index",
-				"type": "uint256"
-			}
-		],
-		"name": "retrieve",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "user",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "created_at",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "hashed",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "detail",
-						"type": "string"
-					}
-				],
-				"internalType": "struct openThaiContract.Contract",
-				"name": "",
-				"type": "tuple"
 			}
 		],
 		"stateMutability": "view",
@@ -101,7 +90,7 @@ export const abi = [
 				"components": [
 					{
 						"internalType": "address",
-						"name": "user",
+						"name": "owner",
 						"type": "address"
 					},
 					{
@@ -126,29 +115,6 @@ export const abi = [
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_created_at",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_hashed",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_detail",
-				"type": "string"
-			}
-		],
-		"name": "store",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -138,8 +138,8 @@ function App() {
         <Link to="/">Home</Link> |{" "}
         <Link to="/view">view deployed contracts</Link> |{" "}
         <span style={{ float: "right" }}>
-          Smart Contract address (ropsten test network) :
-          "0x0e56a578758bcc862c8a8648e0609199404d9d1c"
+          ropsten test network :
+          {address}
         </span>
       </nav>
 

@@ -41,7 +41,7 @@ export default function View() {
 
 
 
-
+    if (typeof contracts!=='undefined')
     return (
         <>
         <nav
@@ -52,8 +52,8 @@ export default function View() {
       >
         <Link to="/">Home</Link> | <Link to="/view">view deployed contracts</Link> |{" "}
         <span style={{ float: "right" }}>
-          Smart Contract address (ropsten test network) :
-          "0xcb51e09ba325d43123d2fed346150afbfcf64dbf"
+          ropsten test network :
+          {address}
         </span>
       </nav>
 
@@ -62,9 +62,9 @@ export default function View() {
           <main> <h2> Deployed Contract</h2></main>
 
           <div> Smart Contract address (ropsten test network) :  <a href={etherscan_link}>{address}</a> </div> <br/>
-          {typeof contracts==='undefined'? <div> loading </div> : <div> User address : {contracts[0][0]} </div> }
+          { (contracts.length === 0 )? <div> No deployed Contract </div> : <ContractTable contracts={contracts}/>}
           <br/>
-        <ContractTable contracts={contracts}/>
+        
             </>
     )
 
