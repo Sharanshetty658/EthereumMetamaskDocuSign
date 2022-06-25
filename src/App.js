@@ -47,7 +47,7 @@ function App() {
   const [hashed, setHashed] = useState();
   const [detail, setDetail] = useState();
   const [alert, setAlert] = useState(false);
-
+  const [recipient,setRecipient] = useState("");
   useEffect(() => {
     const connectToMetamask = async () => {
       if (typeof window.ethereum !== "undefined") {
@@ -56,7 +56,6 @@ function App() {
         const accounts = await provider.send("eth_requestAccounts", []);
 
         setEthaddress(accounts[0]);
-        console.log("set address = ", eth_address);
       } else console.log("please install Metamask");
     };
 
@@ -97,6 +96,43 @@ function App() {
       );
       // setMsg(ans);
       setsignedMsg(storing);
+      setAlert(true);
+    } else {
+      alert("install metamask extension!!");
+    }
+  }
+
+  async function CreateContract(){
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const openlawThai = new ethers.Contract(address, abi, provider);
+      const openlawThaiSigner = openlawThai.connect(signer);
+      // let ans = await openlawThai.wave();
+      var now = new Date();
+      var signed_at = "";
+      var respond;
+      if (recipient.length!==0)
+         {
+
+      respond = await openlawThaiSigner.create(
+        recipient,
+        now.toString(),
+        " ",
+         hashed,
+        detail
+      );           
+    }
+      else { console.log("empty rec"); respond = await openlawThaiSigner.create(
+        "0x0000000000000000000000000000000000000000",
+        now.toString(),
+        now.toString(),
+        hashed,
+        detail
+      );}
+
+      // setMsg(ans);
+      setsignedMsg(respond);
       setAlert(true);
     } else {
       alert("install metamask extension!!");
@@ -243,6 +279,21 @@ function App() {
             variant="filled"
             onChange={(e) => setDetail(e.target.value)}
           />
+<br/>
+<Typography
+            variant="subtitle2"
+            component="h6"
+            textAlign="center"
+            color="#6b6b61"
+          >
+            Recipient address 
+          </Typography>
+          <br />
+          <TextField
+            sx={{ width: 0.5 }}
+            variant="filled"
+            onChange={(e) => {setRecipient(e.target.value); console.log(recipient)}}
+          />
           <br />
           <br /> <br />
           <br />
@@ -258,7 +309,7 @@ function App() {
           <Button
             variant="contained"
             color="success"
-            onClick={SendToBlockchain}
+            onClick={CreateContract}
           >
             Sign tracsaction with Metamask and send to Blockchain (cost gas)
           </Button>

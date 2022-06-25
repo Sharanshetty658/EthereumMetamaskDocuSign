@@ -2,10 +2,13 @@ import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { address, abi } from "../utility/smartcontract";
 import { Link } from "react-router-dom";
-import { ContractTable } from "../components/contractTable";
+import { PendingContractTable } from "../components/PendingcontractTable";
+import {SignedContractTable} from "../components/SignedContractTable";
 export default function View() {
 
-    const [contracts,setContracts] = useState();
+    const [pending,setPending] = useState();
+    const [signed,setSigned] = useState();
+    const [user,setUser]= useState();
     const etherscan_link = `https://ropsten.etherscan.io/address/`+address;
 
 
@@ -15,17 +18,17 @@ export default function View() {
       async function viewBlockchain() {
         if (window.ethereum) {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const accounts = await provider.send("eth_requestAccounts", []);
+          setUser(accounts[0]);
           const signer = provider.getSigner();
-
-         console.log("address seek",address)
           const openlawThai = new ethers.Contract(address, abi, provider);
           const openlawThaiSigner = openlawThai.connect(signer);
-          console.log("before retrieve")
-          let contracts = await openlawThaiSigner.retrieveAll();
-          console.log("this is contract",contracts)
-         // let storing = await openlawThaiSigner.store(now.toString(),hashed, detail);
-         // setMsg(ans);
-          setContracts(contracts);
+          let pending_contracts = await openlawThaiSigner.retrievePending();
+          let signed_contracts = await openlawThaiSigner.retrieveSigned();
+
+          setPending(pending_contracts);
+          setSigned(signed_contracts);
+
       
         } else {
           alert("install metamask extension!!");
@@ -34,14 +37,13 @@ export default function View() {
 
 
         viewBlockchain();
-        console.log("useeffect loop",contracts);
         
 
     },[])
 
 
 
-    if (typeof contracts!=='undefined')
+    if (typeof pending!=='undefined' && typeof signed !== 'undefined')
     return (
         <>
         <nav
@@ -62,7 +64,14 @@ export default function View() {
           <main> <h2> Deployed Contract</h2></main>
 
           <div> Smart Contract address (ropsten test network) :  <a href={etherscan_link}>{address}</a> </div> <br/>
-          { (contracts.length === 0 )? <div> No deployed Contract </div> : <ContractTable contracts={contracts}/>}
+
+
+          <h2> Pending Contract</h2>
+          { (pending.length === 0 )? <div> No deployed Contract </div> : <PendingContractTable contracts={pending} user={user}/>}
+          <br/>
+
+          <h2> Completed Contract</h2>
+          { (signed.length === 0 )? <div> No complete contract </div> : <SignedContractTable contracts={signed} user={user}/>}
           <br/>
         
             </>

@@ -7,10 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { address } from "../utility/smartcontract";
-
-function DenseTable({ contracts }) {
-  function createData(address, date, hash, detail) {
-    return { address, date, hash, detail };
+import { BigNumber } from "ethers";
+function DenseTable({ contracts,user }) {
+  function createData(id,creator,signer, create_at, signed_at, hash, detail, isSigned) {
+    return { id, creator, signer, create_at, signed_at, hash, detail, isSigned };
   }
 
   const rows = [];
@@ -21,21 +21,27 @@ function DenseTable({ contracts }) {
         contracts[i][0],
         contracts[i][1],
         contracts[i][2],
-        contracts[i][3]
+        contracts[i][3],
+        contracts[i][4],
+        contracts[i][5],
+        contracts[i][6],
+        contracts[i][7],
       )
     );
   }
-  console.log(rows);
 
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Contract #</TableCell>
-            <TableCell align="center">date</TableCell>
-            <TableCell align="center">hashed</TableCell>
+            <TableCell>Contract ID</TableCell>
             <TableCell align="center">detail</TableCell>
+            <TableCell align="center">Contract Creator</TableCell>
+            <TableCell align="center">Signed By</TableCell>
+
+            <TableCell align="center">hash</TableCell>
+            <TableCell align="center">signed Date</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -45,11 +51,13 @@ function DenseTable({ contracts }) {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {index + 1}
+                {(row.id).toNumber()}
               </TableCell>
-              <TableCell align="right">{row.date}</TableCell>
-              <TableCell align="right">{row.hash}</TableCell>
-              <TableCell align="right">{row.detail}</TableCell>
+              <TableCell align="center">{row.detail}</TableCell>
+               <TableCell align="center">{row.creator}</TableCell>
+              <TableCell align="center">{row.signer}</TableCell>
+              <TableCell align="center">{row.hash}</TableCell>
+              <TableCell align="center">{row.signed_at}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -58,14 +66,14 @@ function DenseTable({ contracts }) {
   );
 }
 
-export const ContractTable = ({ contracts }) => {
+export const SignedContractTable = ({ contracts,user }) => {
   if (contracts !== undefined) {
     if (contracts.length !== 0)
       return (
         <>
 
-          <DenseTable contracts={contracts} />
+          <DenseTable contracts={contracts} user={user}/>
         </>
       );
-  } else return <>No deployed contracted</>;
+  } else return <>No Complete contracted</>;
 };
