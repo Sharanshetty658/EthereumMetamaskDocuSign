@@ -61,9 +61,9 @@ export default function View() {
 
          
 
-          <main> <h2> Deployed Contract</h2></main>
+          <main> <h2> Deployed at   <a href={etherscan_link}>{address}</a></h2></main>
 
-          <div> Smart Contract address (ropsten test network) :  <a href={etherscan_link}>{address}</a> </div> <br/>
+       
 
 
           <h2> Pending Contract</h2>

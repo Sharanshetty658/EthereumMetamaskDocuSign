@@ -6,10 +6,28 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { address } from "../utility/smartcontract";
+import { address,abi } from "../utility/smartcontract";
 import { BigNumber } from "ethers";
 import { useEffect } from "react";
 import { ethers } from "ethers";
+
+async function sign(id){
+  if (window.ethereum) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const openlawThai = new ethers.Contract(address, abi, provider);
+    const openlawThaiSigner = openlawThai.connect(signer);
+    // let ans = await openlawThai.wave();
+    var now = new Date();
+    var respond;
+    respond = await openlawThaiSigner.sign(
+      id,
+      now.toString()
+    );           
+  } else {
+    alert("install metamask extension!!");
+  }
+}
 function DenseTable({ contracts ,user}) {
   function createData(id,creator,signer, create_at, signed_at, hash, detail, isSigned) {
     return { id, creator, signer, create_at, signed_at, hash, detail, isSigned };
@@ -40,7 +58,7 @@ function DenseTable({ contracts ,user}) {
             <TableCell>Contract ID</TableCell>
             <TableCell align="center">detail</TableCell>
             <TableCell align="center">hash</TableCell>
-            <TableCell align="center">Signer (pending) </TableCell>
+            <TableCell align="center"> ...to be signed by... </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,7 +72,7 @@ function DenseTable({ contracts ,user}) {
               </TableCell>
               <TableCell align="center">{row.detail}</TableCell>
               <TableCell align="center">{row.hash}</TableCell>
-              <TableCell align="center"> {ethers.utils.getAddress(user)===row.signer?(<button>sign</button>):(row.signer)}</TableCell>
+              <TableCell align="center"> {ethers.utils.getAddress(user)===row.signer?(<button onClick={()=>sign((row.id).toNumber())}>sign</button>):(row.signer)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

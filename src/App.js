@@ -279,7 +279,7 @@ function App() {
             variant="filled"
             onChange={(e) => setDetail(e.target.value)}
           />
-<br/>
+<br/> <br/>
 <Typography
             variant="subtitle2"
             component="h6"
