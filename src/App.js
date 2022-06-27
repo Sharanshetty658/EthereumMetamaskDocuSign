@@ -311,7 +311,7 @@ function App() {
             color="success"
             onClick={CreateContract}
           >
-            Sign tracsaction with Metamask and send to Blockchain (cost gas)
+            Sign 
           </Button>
           <br />
           {alert && (

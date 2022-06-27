@@ -67,7 +67,7 @@ export default function View() {
 
 
           <h2> Pending Contract</h2>
-          { (pending.length === 0 )? <div> No deployed Contract </div> : <PendingContractTable contracts={pending} user={user}/>}
+          { (pending.length === 0 )? <div> No pending Contract </div> : <PendingContractTable contracts={pending} user={user}/>}
           <br/>
 
           <h2> Completed Contract</h2>
