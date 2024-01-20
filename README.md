@@ -10,10 +10,10 @@ Once the recipient recieve a document and sign it, the hash of the document and 
 Draft a contract
 ![First Screen](https://github.com/TaroAndMulan/EthereumMetamaskDocuSign/blob/main/public/demopic.png)
 
-Both parties Sign with ethereum private key
+(Both party) Sign a contract with ethereum private key
 ![2](https://github.com/TaroAndMulan/EthereumMetamaskDocuSign/blob/main/public/1.png)
 
-A hash of a signed document is permanent store on the blockchain with timestamp
+A hash of a signed document is permanent stored on the Ethereum blockchain with timestamp
 ![3](https://github.com/TaroAndMulan/EthereumMetamaskDocuSign/blob/main/public/2.png)
 
 ### install
