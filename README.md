@@ -7,6 +7,8 @@ Once the recepient recieve a document and sign it, the hash of the document and 
 
 [PDF DEMO](public/DEMO.pdf)
 
+![First Screen](https://github.com/TaroAndMulan/thesis_blockchain/tree/main/public/demopic.png)
+
 
 ### install
 
