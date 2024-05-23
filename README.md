@@ -1,7 +1,7 @@
-# Signing a document on Ethereum 
-(Depecrated / Go to https://github.com/TaroAndMulan/VCsignAlpha)
+# Signing a document on Ethereum (Depecrated)
+(This is a concept demo for the full project at https://github.com/TaroAndMulan/VCsignAlpha)
 
-[PDF ](public/DEMO.pdf)
+[explanation PDF ](public/DEMO.pdf)
 
 This project support a text to PDF editor.
 The user can initiate a contract by signing a document with Ethereum private keys and send it to the recipient.
