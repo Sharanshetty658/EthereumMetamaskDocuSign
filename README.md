@@ -8,13 +8,13 @@ The user can initiate a contract by signing a document with Ethereum private key
 Once the recipient recieve a document and sign it, the hash of the document and all transaction will be permanently record and verifiable on the blockchain.
 
 
-Draft a contract
+## Draft a contract
 ![First Screen](https://github.com/TaroAndMulan/EthereumMetamaskDocuSign/blob/main/public/demopic.png)
 
-(Both party) Sign a contract with ethereum private key
+## (Both party) Sign a contract with ethereum private key
 ![2](https://github.com/TaroAndMulan/EthereumMetamaskDocuSign/blob/main/public/1.png)
 
-A hash of a signed document is permanent stored on the Ethereum blockchain with timestamp
+## A hash of a signed document is permanent stored on the Ethereum blockchain with timestamp
 ![3](https://github.com/TaroAndMulan/EthereumMetamaskDocuSign/blob/main/public/2.png)
 
 ### install
