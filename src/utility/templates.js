@@ -1,23 +1,25 @@
 export const Templates = {
-  0: {
-    title: "snack_contract",
-    txt: `**สัญญาซื้อขายขนม**  [[ตัวเลือกขนม:Choice("ทาโร่","ซูกัส","จอลลี่โคล่า")]] **[[สัญญาซื้อขายขนม:ตัวเลือกขนม]]**
+  rentalAgreement: {
+    title: "Rental Agreement",
+    txt: `
+      **Rental Agreement**  
 
-**ข้อ 1.** ผู้ขายตกลงขายและผู้ซื้อตกลงซื้อขนมของผู้ขาย จำนวน **[[จำนวนสินค้าที่สั่งซื้อ]]** ชิ้น รวมเป็นเงิน **[[จำนวนเงิน]]** บาท 
+      **Clause 1:** The Lessor agrees to rent the property located at **[[Property Address]]**  
+      to the Lessee for a monthly rent of **[[Monthly Rent Amount]] INR**.  
 
-**ข้อ 2.** สำหรับราคาสินค้าส่วนนั้นผู้ซื้อตกลงชำระให้แก่ผู้ขายภายในวันที่ **[[กำหนดชำระเงิน:Date]]**
+      **Clause 2:** The term of this agreement shall begin on **[[Start Date:Date]]**  
+      and end on **[[End Date:Date]]**.  
 
-**ข้อ 3.** หากผู้ขายได้รับเงินแล้ว จะต้องดำเนินการส่งสินค้าภายในเวลา **[[จัดส่งภายใน]]** วัน
+      **Clause 3:** The rent must be paid by the **[[Payment Due Date:Date]]**  
+      of each month.  
 
-**ข้อ 4.** หากคู่สัญญาฝ่ายหนึ่งฝ่ายใดผิดสัญญา ให้อีกฝ่ายหนึ่งมีสิทธิบอกเลิกสัญญาและมีสิทธิเรียกร้องค่าเสียหายจากฝ่ายที่ผิดสัญญาได้ตามความเป็นจริง
+      **Clause 4:** In case of breach of contract, the Lessor may terminate this  
+      agreement and seek damages.  
 
+      **Signed on:** **[[Signing Date:Date]]**  
 
-ลงวันที่ **[[วันที่:Date]]**
-
- ลงชื่อ **[[ชื่อผู้ขาย]]** ผู้ขาย
-
- ลงชื่อ **[[ชื่อผู้ซื้อ]]** ผู้ซื้อ
-`
+      **Lessor's Name:** **[[Lessor Name]]**  
+      **Lessee's Name:** **[[Lessee Name]]**
+    `,
   },
 };
-
